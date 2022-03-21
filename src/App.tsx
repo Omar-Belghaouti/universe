@@ -5,10 +5,9 @@ import { Suspense } from "react";
 
 function App() {
   return (
-    <Canvas style={{ background: "black" }}>
+    <Canvas>
       <Suspense fallback={null}>
         <Earth />
-        <Stars fade />
       </Suspense>
     </Canvas>
   );
