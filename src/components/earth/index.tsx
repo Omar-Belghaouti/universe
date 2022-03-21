@@ -21,12 +21,18 @@ const Earth: FC = () => {
 
   useFrame(({ clock }) => {
     earthRef.current.rotation.y = clock.getElapsedTime() / 6;
-    cloudsRef.current.rotation.y = clock.getElapsedTime() / 9;
+    cloudsRef.current.rotation.y = clock.getElapsedTime() / 5;
   });
 
   return (
     <>
-      <pointLight color="#f6f3ea" position={[2, 0, 2]} intensity={1.2} />
+      <ambientLight position={[3, 0, 0]} />
+      <pointLight
+        color="#f6f3ea"
+        position={[2, 0, 5]}
+        intensity={1.5}
+        distance={10}
+      />
       <Stars
         radius={300}
         depth={60}
@@ -35,17 +41,17 @@ const Earth: FC = () => {
         saturation={0}
         fade
       />
-      <mesh ref={cloudsRef}>
+      <mesh ref={cloudsRef} position={[0, 0, 3]}>
         <sphereGeometry args={[1.005, 32, 32]} />
         <meshPhongMaterial
           map={cloudsMap}
-          opacity={0.4}
+          opacity={0.5}
           depthWrite
           transparent
           side={THREE.DoubleSide}
         />
       </mesh>
-      <mesh ref={earthRef}>
+      <mesh ref={earthRef} position={[0, 0, 3]}>
         <sphereGeometry args={[1, 32, 32]} />
         <meshPhongMaterial specularMap={specularMap} />
         <meshStandardMaterial
@@ -54,14 +60,14 @@ const Earth: FC = () => {
           metalness={0.4}
           roughness={0.7}
         />
-        <OrbitControls
+        {/* <OrbitControls
           enableZoom
           enablePan
           enableRotate
           zoomSpeed={0.6}
           panSpeed={0.5}
           rotateSpeed={0.4}
-        />
+        /> */}
       </mesh>
     </>
   );
